@@ -2,12 +2,12 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/news/', 'NewsController@news')->name('news');
-
-Route::get('/news/category/', 'NewsController@newsCategory');
-Route::get('/news/category/{id}', 'NewsController@newsCategoryId');
-
-Route::get('/news/{id}', 'NewsController@newsOne');
-
-
-
+Route::group(
+    ['prefix' => 'news',
+        'as' => 'news.'], function() {
+    Route::get('/all/', 'NewsController@news')->name('all');
+    Route::get('/one/{id}', 'NewsController@newsOne')->name('one');
+    Route::get('/categories/', 'NewsController@newsCategory')->name('categories');
+    Route::get('/category/{id}', 'NewsController@newsCategoryId')->name('categoryId');
+    }
+);
