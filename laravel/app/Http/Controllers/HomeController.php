@@ -1,18 +1,28 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index() {
-        $news = route('news.all');
-        return <<<php
-        <a href="/" style="margin: 4px;">Главная</a>
-        <a href="{$news}" style="margin: 4px;">Новости</a>
-        <br><br>
-        <h1>Главная страница</h1>
-php;
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('index'); //home
     }
 }
