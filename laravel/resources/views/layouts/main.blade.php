@@ -9,6 +9,6 @@
     @yield('menu')
     @yield('content')
 
-    <style src="{{ asset('js/app.js') }}"></style>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
