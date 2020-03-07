@@ -9,7 +9,8 @@ Route::group(
     Route::get('/one/{id}', 'NewsController@newsOne')->name('one');
     Route::get('/categories/', 'NewsController@newsCategories')->name('categories');
     Route::get('/category/{id}', 'NewsController@newsCategoryId')->name('categoryId');
-    Route::get('/add/', 'NewsController@addNews')->name('add');
+    Route::get('/download/', 'NewsController@newsGet')->name('get');
+    Route::post('/download/news/', 'NewsController@newsDownload')->name('download');
     }
 );
 
@@ -17,7 +18,7 @@ Route::group(
     ['prefix' => 'admin',
         'as' => 'admin.'], function() {
     Route::get('/', 'AdminController@index')->name('index');
-    Route::get('/add/', 'AdminController@addNews')->name('add');
+    Route::match(['get', 'post'], '/add/', 'AdminController@addNews')->name('addNews')->middleware('web');
     }
 );
 

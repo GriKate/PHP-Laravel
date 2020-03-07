@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Http\Request;
 use App\News;
 
 class NewsController extends Controller
@@ -33,9 +33,29 @@ class NewsController extends Controller
         return view('news.oneCategory', ['category' => News::$categories[$id], 'news' => $news]);
     }
 
-    public function addNews() {
-        return view('news.add');
+    public function newsGet() {
+        return view('news.download', ['categories' => News::$categories, 'news' => News::$news]);
     }
+
+    public function newsDownload(Request $request) {
+        if ($request->isMethod('post')) {
+            $pageId = $request->id;
+
+            if ($request->newsFormat == "text") {
+                $content = view('news.one', ['id' => $pageId, 'news' => News::$news[$pageId]])->render();
+                return response($content)
+                    ->header('Content-type', 'application/txt')
+                    ->header('Content-length', mb_strlen($content))
+                    ->header('Content-Disposition', 'attachment; filename="page.txt"');
+            } elseif ($request->newsFormat == "json") {
+                return response()->json(News::$news[$pageId])
+                    ->header('Content-Disposition', 'attachment; filename="json.txt"')
+                    ->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+            }
+        }
+        return view('news.download', ['categories' => News::$categories, 'news' => News::$news]);
+    }
+
 
 
 }
