@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1>Добавить новость</h1>
-                <form method="post" action="{{route('admin.addNews')}}">
+                <form method="post" action="{{route('admin.addNews')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="newsTitle">Заголовок новости</label>
@@ -23,7 +23,7 @@
                         <label for="newsCategory">Категория новости</label>
                         <select name="category" class="form-control" id="newsCategory">
                             @forelse($categories as $category)
-                            <option @if ($category['id'] == old('$category')) selected
+                            <option @if ($category['id'] == old('category')) selected
                                     @endif value="{{$category['id']}}">
                                 {{$category['name']}}
                             </option>
@@ -34,11 +34,17 @@
                     </div>
                     <div class="form-group">
                         <label for="newsText">Текст новости</label>
-                        <textarea name="text" value="{{old('text')}}" class="form-control" id="newsText" rows="7">{{old('text')}}</textarea>
+                        <textarea name="text" class="form-control" id="newsText" rows="7">{{old('text')}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <input type="file" name="image" class="custom-file-input" id="addFile">
+                            <label class="custom-file-label" for="addFile">Добавить фото</label>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="form-check">
-                            <input name="isPrivate" @if (old('isPrivate') == 1) checked @endif value="1" class="form-check-input" type="checkbox" value="1" id="isPrivate">
+                            <input name="isPrivate" @if (old('isPrivate') == 1) checked @endif value="1" class="form-check-input" type="checkbox" id="isPrivate">
                             <label class="form-check-label" for="isPrivate">
                                 Новость приватная?
                             </label>

@@ -14,10 +14,11 @@ class AdminController extends Controller
 
     public function addNews(Request $request) {
         if ($request->isMethod('post')) {
-            $request->flash();
+            //dd($request->image);
+            //$request->flash();
             return redirect()->route('admin.addNews');
         }
-        //dump($request);
+        //dump($request->isPrivate);
         return view('admin.addNews', ['categories' => News::$categories]);
     }
 }

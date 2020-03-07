@@ -20,9 +20,9 @@
                         @forelse($news as $item)
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input name="id" id="news{{$item['id']}}" value="{{$item['id']}}" class="form-check-input" type="radio">
-                                    <label for="news{{$item['id']}}" class="form-check-label">
-                                        {{$item['title']}}
+                                    <input name="id" id="news{{$item->id}}" value="{{$item->id}}" class="form-check-input" type="radio">
+                                    <label for="news{{$item->id}}" class="form-check-label">
+                                        {{$item->title}}
                                     </label>
                                 </div>
                             </div>

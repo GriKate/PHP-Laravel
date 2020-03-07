@@ -4,37 +4,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\News;
+use App\News;use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
     public function news() {
-        return view('news.news', ['news' => News::$news]);
+        $news = DB::table('news')->get();
+        return view('news.news', ['news' =>$news]);
     }
 
     public function newsOne($id) {
-        if (array_key_exists($id, News::$news))
-            return view('news.one', ['news' => News::$news[$id]]);
-        else
+        $news = DB::table('news')->find($id);
+        if (!empty($news)) {
+            return view('news.one', ['news' => $news]);
+        } else
             return redirect(route('news.all'));
     }
 
     public function newsCategories() {
-        return view('news.categories', ['categories' => News::$categories]);
+        $categories = DB::table('categories')->get();
+        return view('news.categories', ['categories' => $categories]);
     }
 
     public function newsCategoryId($id) {
+        $category = DB::table('categories')->find($id);
+        $allNews = DB::table('news')->get();
         $news = [];
-        foreach (News::$news as $item) {
-            if ($id == $item['category_id']) {
+        foreach ($allNews as $item) {
+            if ($id == $item->category_id) {
                 $news[] = $item;
             }
         }
-        return view('news.oneCategory', ['category' => News::$categories[$id], 'news' => $news]);
+        return view('news.oneCategory', ['category' => $category, 'news' => $news]);
     }
 
     public function newsGet() {
-        return view('news.download', ['categories' => News::$categories, 'news' => News::$news]);
+        $news = DB::table('news')->get();
+        return view('news.download', ['news' => $news]);
     }
 
     public function newsDownload(Request $request) {
