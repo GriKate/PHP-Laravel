@@ -14,9 +14,9 @@
             <div class="col-md-12">
                 <h1><a href="{{route('news.all')}}">Новости</a></h1>
                 <h3><a href="{{route('news.categories')}}">Категории новостей</a></h3>
-                @if (!$news['isPrivate'])
-                    <h2>{{$news['title']}}</h2>
-                    <p>{{$news['text']}}</p>
+                @if (!$news->isPrivate)
+                    <h2>{{$news->title}}</h2>
+                    <p>{{$news->text}}</p>
                 @else
                     <br>Нет прав!
                 @endif

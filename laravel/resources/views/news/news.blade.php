@@ -16,9 +16,14 @@
                 <h3><a href="{{route('news.categories')}}">Категории новостей</a></h3>
                 @forelse($news as $item)
                     <div class="card">
-                        <h3>{{$item['title']}}</h3>
-                        @if (!$item['isPrivate'])
-                            <a href="{{route('news.one', ['id' => $item['id']])}}">Подробнее</a>
+                        <h3>{{$item->title}}</h3>
+                        @if ($item->image)
+                            <div class="news-image" style="background: url({{$item->image}}) center center no-repeat;"></div>
+                        @else
+                            <div class="news-image" style="background: url({{asset('mountains.jpg')}}) center center no-repeat;"></div>
+                        @endif
+                        @if (!$item->isPrivate)
+                            <h4><a href="{{route('news.one', ['id' => $item->id])}}">Подробнее</a></h4>
                         @endif
                     </div>
                 @empty

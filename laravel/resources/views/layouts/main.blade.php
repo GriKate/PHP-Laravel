@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>@section('title')Страница@show</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 <body>
     @yield('menu')

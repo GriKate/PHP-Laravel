@@ -17,7 +17,7 @@
                     <a href="{{route('news.categories')}}">Категории новостей</a>
                 </h1>
                 @forelse($categories as $item)
-                    <h3><a href="{{route('news.categoryId', ['id' => $item['id']])}}" class="card">{{$item['name']}}</a></h3>
+                    <h3><a href="{{route('news.categoryId', ['id' => $item->id])}}" class="card">{{$item->name}}</a></h3>
                 @empty
                     <p>Нет категорий</p>
                 @endforelse
