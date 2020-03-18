@@ -65,4 +65,6 @@ class News extends Model
             'name' => 'Спорт',
         ],
     ];
+
+
 }
