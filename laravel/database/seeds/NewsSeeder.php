@@ -23,7 +23,6 @@ class NewsSeeder extends Seeder
                 'title' => $faker->realText(rand(20, 50)),
                 'text' => $faker->realText(rand(1000, 2000)),
                 'isPrivate' => $faker->boolean(rand(0, 1)),
-                'image' => "",
             ];
         }
         return $data;

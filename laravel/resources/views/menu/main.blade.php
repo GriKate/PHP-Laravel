@@ -19,7 +19,7 @@
                     <a class="nav-link {{request()->routeIs('news.get')? 'active' : ''}}" href="{{route('news.get')}}">Скачать новости</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{request()->routeIs('admin.index')? 'active' : ''}}" href="{{route('admin.index')}}">Админ</a>
+                    <a class="nav-link {{request()->routeIs('admin.allNews')? 'active' : ''}}" href="{{route('admin.allNews')}}">Админ</a>
                 </li>
             </ul>
         </div>

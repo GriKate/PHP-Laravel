@@ -11,10 +11,6 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert($this->getData());
-    }
-
-    private function getData() {
         $data = [
             '0' => [
                 'category' => 'politics',
@@ -37,6 +33,7 @@ class CategoriesSeeder extends Seeder
                 'name' => 'Общество',
             ]
         ];
-        return $data;
+        DB::table('categories')->insert($data);
     }
+
 }

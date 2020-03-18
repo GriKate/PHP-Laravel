@@ -23,12 +23,13 @@
                             <div class="news-image" style="background: url({{asset('mountains.jpg')}}) center center no-repeat;"></div>
                         @endif
                         @if (!$item->isPrivate)
-                            <h4><a href="{{route('news.one', ['id' => $item->id])}}">Подробнее</a></h4>
+                            <h4><a href="{{route('news.one', ['news' => $item])}}">Подробнее</a></h4>
                         @endif
                     </div>
                 @empty
                     <p>Нет новостей</p>
                 @endforelse
+                {{$news->links()}}
             </div>
         </div>
     </div>
