@@ -55,6 +55,7 @@ class NewsController extends Controller
     }
 
     public function newsDownload(Request $request) {
+        dd($request);
         if ($request->isMethod('post')) {
             $pageId = $request->id;
 
