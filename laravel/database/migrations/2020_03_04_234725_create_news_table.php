@@ -15,13 +15,13 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->tinyInteger('category_id')->unsigned();
+            //$table->tinyInteger('category_id')->unsigned();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->string('title')->comment('Заголовок новости');
             $table->text('text')->comment('Текст новости');
             $table->boolean('isPrivate')->default(false);
-            $table->string('image')->default(null);
+            $table->string('image')->nullable(true);
         });
     }
 

@@ -24,6 +24,7 @@
                 @empty
                     <p>Нет новостей</p>
                 @endforelse
+                {{$news->links()}}
             </div>
         </div>
     </div>

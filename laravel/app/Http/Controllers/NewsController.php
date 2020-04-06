@@ -3,18 +3,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
-use App\News;use Illuminate\Support\Facades\DB;
+use App\News;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
     public function news() {
-        $news = DB::table('news')->get();
-        return view('news.news', ['news' =>$news]);
+        //$news = DB::table('news')->get();
+        //$news = News::all();
+        $news = News::query()
+            ->where('isPrivate', false)
+            ->paginate(10);
+        return view('news.all', ['news' =>$news]);
     }
 
-    public function newsOne($id) {
-        $news = DB::table('news')->find($id);
+    public function newsOne(News $news) {
+        //$news = DB::table('news')->find($id);
+        //$news = News::find($id);
         if (!empty($news)) {
             return view('news.one', ['news' => $news]);
         } else
@@ -22,24 +29,28 @@ class NewsController extends Controller
     }
 
     public function newsCategories() {
-        $categories = DB::table('categories')->get();
+        //$categories = DB::table('categories')->get();
+        $categories = Category::all();
         return view('news.categories', ['categories' => $categories]);
     }
 
     public function newsCategoryId($id) {
-        $category = DB::table('categories')->find($id);
-        $allNews = DB::table('news')->get();
-        $news = [];
-        foreach ($allNews as $item) {
-            if ($id == $item->category_id) {
-                $news[] = $item;
-            }
-        }
-        return view('news.oneCategory', ['category' => $category, 'news' => $news]);
+        //$category = DB::table('categories')->find($id);
+        $cat = Category::query()
+            ->where('id', $id)
+            ->get();
+        //$news = News::query()->where('category_id', $cat[0]->id)->paginate(5);
+        $news = Category::query()
+            ->find($cat[0]->id)
+            ->news()
+            ->paginate(5);
+
+        return view('news.oneCategory', ['category' => $cat[0], 'news' => $news]);
     }
 
     public function newsGet() {
-        $news = DB::table('news')->get();
+        //$news = DB::table('news')->get();
+        $news = News::all();
         return view('news.download', ['news' => $news]);
     }
 
@@ -48,13 +59,13 @@ class NewsController extends Controller
             $pageId = $request->id;
 
             if ($request->newsFormat == "text") {
-                $content = view('news.one', ['id' => $pageId, 'news' => News::$news[$pageId]])->render();
+                $content = view('news.one', ['id' => $pageId, 'news' => News::query()->find($pageId)])->render();
                 return response($content)
                     ->header('Content-type', 'application/txt')
                     ->header('Content-length', mb_strlen($content))
                     ->header('Content-Disposition', 'attachment; filename="page.txt"');
             } elseif ($request->newsFormat == "json") {
-                return response()->json(News::$news[$pageId])
+                return response()->json(News::query()->find($pageId))
                     ->header('Content-Disposition', 'attachment; filename="json.txt"')
                     ->setEncodingOptions(JSON_UNESCAPED_UNICODE);
             }

@@ -6,7 +6,7 @@ Route::group(
     ['prefix' => 'news',
         'as' => 'news.'], function() {
     Route::get('/all/', 'NewsController@news')->name('all');
-    Route::get('/one/{id}', 'NewsController@newsOne')->name('one');
+    Route::get('/one/{news}', 'NewsController@newsOne')->name('one');
     Route::get('/categories/', 'NewsController@newsCategories')->name('categories');
     Route::get('/category/{id}', 'NewsController@newsCategoryId')->name('categoryId');
     Route::get('/download/', 'NewsController@newsGet')->name('get');
@@ -16,9 +16,13 @@ Route::group(
 
 Route::group(
     ['prefix' => 'admin',
+        'namespace' => 'Admin',
         'as' => 'admin.'], function() {
-    Route::get('/', 'AdminController@index')->name('index');
-    Route::match(['get', 'post'], '/add/', 'AdminController@addNews')->name('addNews')->middleware('web');
+    Route::get('/', 'NewsController@all')->name('allNews');
+    Route::match(['get', 'post'], '/addNews/', 'NewsController@add')->name('addNews')->middleware('web');
+    Route::get('/updateNews{news}', 'NewsController@update')->name('updateNews');
+    Route::post('/saveNews{news}', 'NewsController@save')->name('saveNews');
+    Route::get('/deleteNews{news}', 'NewsController@delete')->name('deleteNews');
     }
 );
 
