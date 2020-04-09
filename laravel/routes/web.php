@@ -19,7 +19,10 @@ Route::group(
 Route::group(
     ['prefix' => 'admin',
         'namespace' => 'Admin',
-        'as' => 'admin.'], function() {
+        'as' => 'admin.',
+        'middleware' => ['auth', 'is_admin']], function() {
+    Route::get('/users', 'UsersController@show')->name('allUsers');
+    Route::get('/users/changeAdmin/{id}', 'UsersController@changeAdmin')->name('changeAdmin');
     Route::get('/', 'NewsController@all')->name('allNews');
     Route::match(['get', 'post'], '/addNews/', 'NewsController@add')->name('addNews')->middleware('web');
     Route::get('/updateNews{news}', 'NewsController@update')->name('updateNews');
@@ -28,6 +31,13 @@ Route::group(
     }
 );
 
+Route::group(
+    ['prefix' => 'profile',
+        'as' => 'profile.'], function() {
+    Route::get('/', 'ProfileController@index')->name('showProfile');
+    Route::post('/update{user}', 'ProfileController@update')->name('updateProfile');
+    }
+);
 
 
 

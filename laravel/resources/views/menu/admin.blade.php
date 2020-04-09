@@ -16,6 +16,9 @@
                     <a class="nav-link {{request()->routeIs('admin.addNews')? 'active' : ''}}" href="{{route('admin.addNews')}}">Добавить новость</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{request()->routeIs('admin.allUsers')? 'active' : ''}}" href="{{route('admin.allUsers')}}">Пользователи</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{request()->routeIs('admin.allNews')? 'active' : ''}}" href="{{route('admin.allNews')}}">admin-2</a>
                 </li>
             </ul>
