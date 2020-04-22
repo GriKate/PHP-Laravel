@@ -19,8 +19,13 @@
                     <a class="nav-link {{request()->routeIs('news.get')? 'active' : ''}}" href="{{route('news.get')}}">Скачать новости</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{request()->routeIs('admin.allNews')? 'active' : ''}}" href="{{route('admin.allNews')}}">Админ</a>
+                    <a class="nav-link {{request()->routeIs('profile.showProfile')? 'active' : ''}}" href="{{route('profile.showProfile')}}">Профиль</a>
                 </li>
+                @if (Auth::user()->is_admin)
+                    <li class="nav-item">
+                        <a class="nav-link {{request()->routeIs('admin.allNews')? 'active' : ''}}" href="{{route('admin.allNews')}}">Админ</a>
+                    </li>
+                @endif
             </ul>
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->

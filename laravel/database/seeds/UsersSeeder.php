@@ -19,12 +19,12 @@ class UsersSeeder extends Seeder
             '0' => [
                 'name' => 'Admin',
                 'email' => 'admin@news.ru',
-                'password' => '123',
+                'password' => Hash::make('123'), //123
                 ],
             '1' => [
                 'name' => 'User',
                 'email' => 'user@news.ru',
-                'password' => '321',
+                'password' => Hash::make('321'), //321
                 ],
         ];
         return $data;
